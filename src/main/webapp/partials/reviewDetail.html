@@ -1,0 +1,50 @@
+<div class='row'>
+  <div class='col-lg-10'>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">{{review.title}}</h3>
+      </div>
+      <div class="panel-body">
+        <div class='row'>
+          <div class='col-lg-10'>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Property</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tr>
+                <td>Title</td>
+                <td>{{review.title}}</td>
+              </tr>
+              <tr>
+                <td>Review</td>
+                <td>{{review.review}}</td>
+              </tr>
+              <tr>
+                <td>Sentiment</td>
+                <td><span ng-if='review.sentiment === "Neutral"' class='text-muted'><i class="fa fa-meh-o fa-2x"></i></span><span ng-if='review.sentiment === "Positive"' class='text-success'><i class="fa fa-smile-o fa-2x"></i></span><span ng-if='review.sentiment === "Negative"' class='text-danger'><i class="fa fa-frown-o fa-2x"></i></span></td>
+              </tr>
+              <tr>
+                <td>Rating</td>
+                <td>{{review.rating}}</td>
+              </tr>
+            </table>
+          </div>
+          <div class='col-lg-2' ng-if="signedIn()">
+            <a class='btn btn-default btn-block' href='#/products/{{productid}}/reviews/{{review.reviewId}}/edit'>Edit Review</a>
+            <button type='button' class='btn btn-default btn-block' ng-click='delete()'>Delete</a>
+          </div>
+        </div>
+        <div class='row'>
+          <div class='col-lg-12'>
+            <a class='btn btn-default' href='#/products/{{productid}}'>Return</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class='col-lg-2'>
+  </div>
+</div>

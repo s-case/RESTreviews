@@ -1,0 +1,60 @@
+<div class='row'>
+  <div class='col-lg-10'>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">{{product.title}}</h3>
+      </div>
+      <div class="panel-body">
+        <div class='row'>
+          <div class='col-lg-4'>
+            <img src='{{product.imageUrl}}' width = '200px'/ ng-if='product.imageUrl'>
+          </div>
+          <div class='col-lg-6'>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Property</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tr>
+                <td>Title</td>
+                <td>{{product.title}}</td>
+              </tr>
+              <tr>
+                <td>Description</td>
+                <td>{{product.description}}</td>
+              </tr>
+              <tr>
+                <td>Categories</td>
+                <td>{{product.category}}</td>
+              </tr>
+              <tr>
+                <td>Price</td>
+                <td>{{product.price}}</td>
+              </tr>
+            </table>
+            <h4>Reviews</h4>
+            <ul>
+              <li ng-repeat='review in reviews | orderBy : "id" '><a href='#/products/{{product.productId}}/reviews/{{review.id}}'>{{review.name}}</a></li>
+            </ul>
+            <p ng-if='reviews.length === 0' class="text-muted"> None for the time being...</p>
+          </div>
+          <div class='col-lg-2' ng-if="signedIn()">
+            <a class='btn btn-default btn-block' href='#/products/{{product.productId}}/reviews/new'>Add Review</a>
+            <a class='btn btn-default btn-block' href='#/products/{{product.productId}}/edit'>Edit Product</a>
+            <button type='button' class='btn btn-default btn-block' ng-click='delete()'>Delete</a>
+            <button type='button' class='btn btn-default btn-block' ng-click='buy()' ng-disabled='disableBuy'><span ng-show='!disableBuy'>Buy 1 Click</span><span ng-show='disableBuy'><i class="fa fa-spinner fa-spin"></i></span></a>
+          </div>
+        </div>
+        <div class='row'>
+          <div class='col-lg-12'>
+            <a class='btn btn-default' href='#/'>Return</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class='col-lg-2'>
+  </div>
+</div>

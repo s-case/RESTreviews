@@ -1,0 +1,34 @@
+<div class='row'>
+  <div class='col-lg-3'>
+  </div>
+  <div class='col-lg-6'>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title" ng-if='!newReview'>Edit {{review.title}}</h3>
+        <h3 class="panel-title" ng-if='newReview'>Add Review</h3>
+      </div>
+      <div class="panel-body">
+        <form>
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" placeholder="Title" ng-model='review.title'>
+          </div>
+          <div class="form-group">
+            <label for="description">Review</label>
+            <input type="text" class="form-control" id="description" placeholder="Review" ng-model='review.review'>
+          </div>
+          <div class="form-group">
+            <label for="rating">Rating</label>
+            <input type="number" min="0" step="1" max="5" class="form-control" id="rating" ng-model='review.rating'>
+          </div>
+          <a role="button" class="btn btn-default" href='#/products/{{productid}}' ng-if='newReview'>Cancel</a>
+          <a role="button" class="btn btn-default" ng-href='#/products/{{productid}}/reviews/{{reviewid}}' ng-if='!newReview'>Cancel</a>
+          <button type="submit" class="btn btn-default" ng-click='submit()' ng-if='newReview'>Submit</button>
+          <button type="submit" class="btn btn-default" ng-click='update()' ng-if='!newReview'>Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class='col-lg-3'>
+  </div>
+</div>
