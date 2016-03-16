@@ -7,12 +7,12 @@
  * Intelligent Systems & Software Engineering Lab
  *
  * Project             : reviews
- * WorkFile            : 
- * Compiler            : 
- * File Description    : 
- * Document Description: 
-* Related Documents	   : 
-* Note				   : 
+ * WorkFile            :
+ * Compiler            :
+ * File Description    :
+ * Document Description:
+* Related Documents	   :
+* Note				   :
 * Programmer		   : RESTful MDE Engine created by Christoforos Zolotas
 * Contact			   : christopherzolotas@issel.ee.auth.gr
 */
@@ -42,8 +42,8 @@ import eu.fp7.scase.reviews.utilities.HibernateController;
 
 
 
-/* 
- *This class processes client requests for sentimentAnalysis resource that are to be delegated to an existing 3rd party service. 
+/*
+ *This class processes client requests for sentimentAnalysis resource that are to be delegated to an existing 3rd party service.
  *Uppon its output receival, this class repackages the output and creates the hypermedia links with the search results to be returned to the client
 */
 public class GetsentimentAnalysisHandler{
@@ -62,9 +62,9 @@ public class GetsentimentAnalysisHandler{
 		this.text = text;
 		//initialize authentication variables
 		this.authHeader = authHeader;
-		this.oAuthenticationAccount = new JavaaccountModel(); 
+		this.oAuthenticationAccount = new JavaaccountModel();
 
-		//initialize JAX-RS Client configuration 
+		//initialize JAX-RS Client configuration
 		this.oClientConfiguration = new DefaultClientConfig();
 		this.oClientConfiguration.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
     }
@@ -103,38 +103,38 @@ public class GetsentimentAnalysisHandler{
     	{
     		throw new WebApplicationException(Response.Status.BAD_REQUEST);
     	}
-    	
+
         authHeader = authHeader.substring("Basic ".length());
         String[] decodedHeader;
         decodedHeader = Base64.base64Decode(authHeader).split(":");
-        
+
         if( decodedHeader == null)
         {
         	throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
-        
+
         oAuthenticationAccount.setusername(decodedHeader[0]);
         oAuthenticationAccount.setpassword(decodedHeader[1]);
     }
 
-    /* 
-	 * This function handles the interoperation with the existing 3rd party service. It calls the according functions to create the input 
-	 * to be sent to it, to receive its output and if necessary to persist the outcome in the database. 
+    /*
+	 * This function handles the interoperation with the existing 3rd party service. It calls the according functions to create the input
+	 * to be sent to it, to receive its output and if necessary to persist the outcome in the database.
 	 * Finally, the result is returned to the client.
     */
     public JavaSentimentAnalysisOutputModel interoperateWithExternalService(){
-		
+
 		//create a new JAX-RS client
         Client oJAXRSRESTClient = Client.create(this.oClientConfiguration);
 
 		//construct the GET query
-		WebResource oTargetResource = oJAXRSRESTClient.resource("http://thalis.ee.auth.gr:3000/sentiment").queryParam("text", this.text);
+		WebResource oTargetResource = oJAXRSRESTClient.resource("http://localhost:3000/sentiment").queryParam("text", this.text);
         ClientResponse oResponse = oTargetResource.accept(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(ClientResponse.class);
         this.oOutputDataModel = oResponse.getEntity(JavaSentimentAnalysisOutputModel.class);
 
         if (isSuccessfullResponseCode(oResponse) == false) {
             throw new WebApplicationException();
-        }	
+        }
 
 		return this.oOutputDataModel;
 	}
@@ -168,5 +168,5 @@ public class GetsentimentAnalysisHandler{
 
 		return false;
 	}
-	
+
 }
